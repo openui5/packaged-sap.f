@@ -49,6 +49,9 @@
   top: 0;
   bottom: 0;
 }
+.sapFDynamicPageContent > .sapFDynamicPageContentFitContainer.sapFDynamicPageContentFitContainerFooterVisible {
+  bottom: 4rem;
+}
 .sapFDynamicPage-Std-Tablet .sapFDynamicPageContent,
 .sapFDynamicPage-Std-Tablet .sapFDynamicPageContentFitContainer {
   padding-right: 1rem;

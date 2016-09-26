@@ -10,34 +10,53 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		"use strict";
 
 		/**
-		 * Constructor for a new Basic Page Layout Header.
+		 * Constructor for a new <code>DynamicPageHeader</code>.
 		 *
-		 * @param {string} [sId] id for the new control, generated automatically if no id is given
-		 * @param {object} [mSettings] initial settings for the new control
+		 * @param {string} [sId] ID for the new control, generated automatically if no ID is given
+		 * @param {object} [mSettings] Initial settings for the new control
 		 *
 		 * @class
-		 * The DynamicPage header can hold any UI5 layout control. The header has two versions - snapped and expanded.
-		 * The header switches between these modes when the user scrolls below its bottom margin.
-		 * Disclaimer: this control is in beta state - incompatible API changes may be done before its official public release. Use at your own discretion.
+		 * <strong><i>Overview</i></strong>
+		 * <br><br>
+		 * The {@link sap.f.DynamicPageHeader DynamicPageHeader} control is part
+		 * of the {@link sap.f.DynamicPage} family and is used to serve as header
+		 * of the {@link sap.f.DynamicPage DynamicPage}.
+		 * <br><br>
+		 * <strong><i>Usage</i></strong>
+		 * <br><br>
+		 * The {@link sap.f.DynamicPageHeader DynamicPageHeader} can hold any
+		 * layout control and has two states - expanded and collapsed (snapped).
+		 * The switching between these states happens when:
+		 * <ul>
+		 * <li>the user scrolls below its bottom margin</li>
+		 * <li>the user clicks on the
+		 * {@link sap.f.DynamicPageTitle DynamicPageTitle}</li>
+		 * <li>through the {@link sap.f.DynamicPage DynamicPage}
+		 * property <code>headerExpanded</code></li>
+		 * </ul>
+		 * <strong><i>Responsive Behavior</i></strong>
+		 * <br><br>
+		 * The responsive behavior of the
+		 * {@link sap.f.DynamicPageHeader DynamicPageHeader} depends on the
+		 * behavior of the content that is displayed.
+		 *
+		 * @extends sap.ui.core.Control
 		 *
 		 * @author SAP SE
-		 * @version 1.42.0
+		 * @version 1.42.2
 		 *
 		 * @constructor
-		 * @private
+		 * @public
 		 * @since 1.42
-		 * @alias f.DynamicPageHeader
+		 * @alias sap.f.DynamicPageHeader
 		 * @ui5-metamodel This control/element also will be described in the UI5 (legacy) designtime metamodel
 		 */
 		var DynamicPageHeader = Control.extend("sap.f.DynamicPageHeader", /** @lends sap.f.DynamicPageHeader.prototype */ {
 			metadata: {
-				interfaces: [
-					"sap.f.ISnappable"
-				],
 				library: "sap.f",
 				properties: {
 					/**
-					 * Determines whether the header will be pinnable.
+					 * Determines whether the header is pinnable.
 					 */
 					pinnable: {type: "boolean", group: "Appearance", defaultValue: true}
 				},
@@ -61,8 +80,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		DynamicPageHeader._LIBRARY = "sap.m";
 
 		/**
-		 * Retrieves the resource bundle for the sap.f library
-		 *
+		 * Retrieves the resource bundle for the <code>sap.f</code> library.
 		 * @returns {Object} the resource bundle object
 		 */
 		DynamicPageHeader._getResourceBundle = function () {
@@ -90,7 +108,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		/*************************************** Private members ******************************************/
 
 		/**
-		 * Determines the pin/unpin toggle button state
+		 * Determines the pin/unpin toggle button state.
 		 * @param bValue
 		 * @private
 		 */
@@ -99,8 +117,8 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Used to internally show/hide the pin/unpin button without going through the rendering phase
-		 * @param {boolean} bValue - to show or to hide the button
+		 * Shows/hides the pin/unpin button without re-rendering.
+		 * @param {boolean} bValue to show or hide the button
 		 * @private
 		 */
 		DynamicPageHeader.prototype._setShowPinBtn = function (bValue) {
@@ -108,7 +126,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Fires the pin/unpin press event
+		 * Fires the pin/unpin press event.
 		 * @private
 		 */
 		DynamicPageHeader.prototype._pinUnpinFireEvent = function () {
@@ -116,7 +134,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Initializes the Header ARIA State.
+		 * Initializes the <code>DynamicPageHeader</code> ARIA State.
 		 * @private
 		 */
 		DynamicPageHeader.prototype._initARIAState = function () {
@@ -127,7 +145,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Initializes the Header Pin Button ARIA State.
+		 * Initializes the <code>DynamicPageHeader</code> pin/unpin ARIA State.
 		 * @private
 		 */
 		DynamicPageHeader.prototype._initPinButtonARIAState = function () {
@@ -140,8 +158,8 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Updates Header ARIA attributes values according to expanded/snapped state.
-		 * @param {Boolean} bExpanded determines if the Header is expanded or snapped
+		 * Updates <code>DynamicPageHeader</code> ARIA attributes values according to expanded/collapsed (snapped) state.
+		 * @param {Boolean} bExpanded expanded or collapsed (snapped)
 		 * @private
 		 */
 		DynamicPageHeader.prototype._updateARIAState = function (bExpanded) {
@@ -157,8 +175,8 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Updates Header Pin Button ARIA attributes values according to pinned/unpinned state.
-		 * @param {Boolean} bPinned determines if the Header is pinned or unpinned
+		 * Updates <code>DynamicPageHeader</code> pin/unpin button ARIA attributes values according to the pinned/unpinned state.
+		 * @param {Boolean} bPinned determines if the <code>DynamicPageHeader</code> is pinned or unpinned
 		 * @private
 		 */
 		DynamicPageHeader.prototype._updateARIAPinButtonState = function (bPinned) {
@@ -172,7 +190,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Lazily retrieves the Header Pin button.
+		 * Lazily retrieves the <code>DynamicPageHeader</code> pin/unpin button.
 		 * @returns {sap.m.ToggleButton}
 		 * @private
 		 */
@@ -192,7 +210,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Focuses the Header Pin button.
+		 * Focuses the <code>DynamicPageHeader</code> pin/unpin button.
 		 * @private
 		 */
 		DynamicPageHeader.prototype._focusPinButton = function () {
@@ -200,7 +218,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/ui/
 		};
 
 		/**
-		 * Returns the Header Pin Button DOM Ref.
+		 * Returns the <code>DynamicPageHeader</code> pin/unpin button DOM Ref.
 		 * @return {jQuery}
 		 * @private
 		 */

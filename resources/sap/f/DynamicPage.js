@@ -73,7 +73,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.42.6
+	 * @version 1.42.7
 	 *
 	 * @constructor
 	 * @public
@@ -231,7 +231,9 @@ sap.ui.define([
 
 	DynamicPage.prototype.setShowFooter = function (bShowFooter) {
 		var vResult = this.setProperty("showFooter", bShowFooter, true);
+
 		this._toggleFooter(bShowFooter);
+
 		return vResult;
 	};
 
@@ -295,6 +297,10 @@ sap.ui.define([
 	 */
 	DynamicPage.prototype._toggleFooter = function (bShow) {
 		var oFooter = this.getFooter();
+
+		if (!exists(this.$())) {
+			return;
+		}
 
 		if (!exists(oFooter)) {
 			return;

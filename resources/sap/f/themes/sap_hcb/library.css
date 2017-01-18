@@ -1,11 +1,11 @@
 /*!
  * UI development toolkit for HTML5 (OpenUI5)
- * (c) Copyright 2009-2016 SAP SE or an SAP affiliate company.
+ * (c) Copyright 2009-2017 SAP SE or an SAP affiliate company.
  * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
  */
 /*!
  * UI development toolkit for HTML5 (OpenUI5)
- * (c) Copyright 2009-2016 SAP SE or an SAP affiliate company.
+ * (c) Copyright 2009-2017 SAP SE or an SAP affiliate company.
  * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
  */
 /* =========================== */
@@ -305,11 +305,6 @@ html[data-sap-ui-animation='on'] .sapFDynamicPage .sapFDynamicPageActualFooterCo
 .sapFDynamicPage-Std-Phone .sapFDynamicPageTitle {
   padding-left: 1rem;
   padding-right: 0;
-}
-/* Compact */
-.sapUiSizeCompact .sapFDynamicPageTitle {
-  padding-left: 3rem;
-  padding-right: 2rem;
 }
 .sapFDynamicPageHeader {
   z-index: 2;

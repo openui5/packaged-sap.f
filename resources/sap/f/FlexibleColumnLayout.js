@@ -29,7 +29,7 @@ sap.ui.define([
 	 * The FlexibleColumnLayout control implements the master-detail-detail paradigm by allowing the user to display up to three pages at a time.
 	 *
 	 * @author SAP SE
-	 * @version 1.46.1
+	 * @version 1.46.2
 	 *
 	 * @constructor
 	 * @public

@@ -67,7 +67,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.46.2
+	 * @version 1.46.3
 	 *
 	 * @constructor
 	 * @public
@@ -266,8 +266,8 @@ sap.ui.define([
 	DynamicPage.prototype.setPreserveHeaderStateOnScroll = function (bPreserveHeaderStateOnScroll) {
 		var vResult = this.setProperty("preserveHeaderStateOnScroll", bPreserveHeaderStateOnScroll, false);
 
-		if (bPreserveHeaderStateOnScroll) {
-			this.setProperty("headerExpanded", true, true);
+		if (bPreserveHeaderStateOnScroll || this._shouldExpand()) {
+			this.setHeaderExpanded(true);
 		}
 
 		return vResult;

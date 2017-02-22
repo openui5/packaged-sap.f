@@ -19,14 +19,14 @@ sap.ui.define([
 	* @param {object} [mSettings] Initial settings for the new control
 	*
 	* @class
-	* A <code>SemanticButton</code> is either a {@link sap.m.Button} or {@link sap.m.OverflowToolbarButton} ,
-	* eligible for aggregation content of a {@link sap.f.semantic.SemanticPage}.
+	* A base class for the available semantic actions, such as {@link sap.f.semantic.AddAction AddAction},
+	* {@link sap.f.semantic.CloseAction CloseAction}, etc.
 	*
 	* @extends <code>sap.f.semantic.SemanticControl</code>
 	* @abstract
 	*
 	* @author SAP SE
-	* @version 1.46.2
+	* @version 1.46.3
 	*
 	* @constructor
 	* @public
@@ -40,13 +40,13 @@ sap.ui.define([
 			"abstract" : true,
 			properties : {
 				/**
-				 * Determines if the <code>SemanticButton</code> is enabled or disabled (default is true).
+				 * Determines whether the <code>SemanticButton</code> is enabled.
 				 */
 				enabled : {type : "boolean", group : "Behavior", defaultValue : true}
 			},
 			events : {
 				/**
-				* Event is fired when the user clicks on the <code>SemanticButton</code>.
+				* Fired when the user selects the <code>SemanticButton</code>.
 				*/
 				press : {}
 			}

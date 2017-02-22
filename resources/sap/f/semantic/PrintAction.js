@@ -13,14 +13,13 @@ sap.ui.define(['sap/f/semantic/SemanticButton'], function(SemanticButton) {
 	* @param {object} [mSettings] Custom initial settings for the new control
 	*
 	* @class
-	* An <code>PrintAction</code> button has default semantic-specific properties
-	* and it`s placed in the <code>SemanticPage</code> share menu within the title.
-	* The <code>PrintAction</code> is eligible for aggregation content of a {@link sap.f.semantic.SemanticPage}.
+	* A semantic-specific button, eligible for the <code>printAction</code> aggregation of the
+	* {@link sap.f.semantic.SemanticPage} to be placed in the share menu within its title.
 	*
 	* @extends <code>sap.f.semantic.SemanticButton</code>
 	*
 	* @author SAP SE
-	* @version 1.46.2
+	* @version 1.46.3
 	*
 	* @constructor
 	* @public

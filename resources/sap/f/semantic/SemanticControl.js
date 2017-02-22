@@ -15,18 +15,17 @@ sap.ui.define([
 	/**
 	* Constructor for a new <code>SemanticControl</code>.
 	*
-	* @param {string} [sId] id for the new control, generated automatically if no id is given
-	* @param {object} [mSettings] initial settings for the new control
+	* @param {string} [sId] ID for the new control, generated automatically if no ID is given
+	* @param {object} [mSettings] Initial settings for the new control
 	*
 	* @class
-	* A semantic control is an abstraction for either a {@link sap.f.semantic.SemanticButton}
-	* and it`s eligible for aggregation content of a {@link sap.f.semantic.SemanticPage}.
+	* The base class for the {@link sap.f.semantic.SemanticButton}.
 	*
 	* @extends sap.ui.core.Element
 	* @abstract
 	*
 	* @author SAP SE
-	* @version 1.46.2
+	* @version 1.46.3
 	*
 	* @constructor
 	* @public
@@ -42,7 +41,7 @@ sap.ui.define([
 			properties: {
 
 				/**
-				* Defines the <code>SemanticControl</code> visibility
+				* Determines whether the <code>SemanticControl</code> is visible.
 				*/
 				visible: {type: "boolean", group: "Appearance", defaultValue: true}
 			},
@@ -50,7 +49,7 @@ sap.ui.define([
 			aggregations: {
 
 				/**
-				* Hidden <code>aggregation</code>
+				* Hidden aggregation.
 				*/
 				_control: {type: "sap.ui.core.Control", multiple: false, visibility: "hidden"}
 			}
@@ -166,7 +165,7 @@ sap.ui.define([
 	};
 
 	/**
-	* Applies the property value according to semantic logic
+	* Applies the property value according to the semantic logic.
 	* @private
 	*/
 	SemanticControl.prototype._applyProperty = function(key, value, bSuppressInvalidate) {

@@ -12,14 +12,13 @@ sap.ui.define(['./SemanticButton'], function(SemanticButton) {
 	* @param {object} [mSettings] Custom initial settings for the new control
 	*
 	* @class
-	* A <code>FullScreenAction</code> button has default semantic-specific properties
-	* and it`s placed in the <code>SemanticPage</code> title.
-	* The <code>FullScreenAction</code> is eligible for aggregation content of a {@link sap.f.semantic.SemanticPage}.
+	* A semantic-specific button, eligible for the <code>fullScreenAction</code> aggregation of the
+	* {@link sap.f.semantic.SemanticPage} to be placed in its title.
 	*
 	* @extends <code>sap.f.semantic.SemanticButton</code>
 	*
 	* @author SAP SE
-	* @version 1.46.2
+	* @version 1.46.3
 	*
 	* @constructor
 	* @public

@@ -1,3 +1,8 @@
+/* ============================= */
+/* CSS for control sap.f/Avatar  */
+/* Base theme                    */
+/* ============================= */
+
 .sapFAvatar {
 	display: inline-block;
 	position: relative;
@@ -13,10 +18,13 @@
 
 .sapFAvatarImageContain {
 	background-size: contain;
+	background-color: @sapUiContentImagePlaceholderBackground;
 }
 
 .sapFAvatarIcon {
 	text-align: center;
+	background-color: @sapUiContentImagePlaceholderBackground;
+	color: @sapUiContentIconColor;
 
 	.sapUiIcon {
 		position: absolute;
@@ -94,7 +102,16 @@
 		font-size: 2.75rem;
 	}
 }
+
 .sapFAvatarFocusable:focus {
 	outline: 1px dotted @sapUiContentFocusColor;
 	outline-offset: -1px;
+}
+
+.sapFAvatarInitials {
+	background-color: @sapUiContentImagePlaceholderBackground;
+
+	.sapFAvatarInitialsHolder {
+		color: @sapUiContentIconColor;
+	}
 }

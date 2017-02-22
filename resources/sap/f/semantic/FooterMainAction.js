@@ -13,14 +13,13 @@ sap.ui.define(["./MainAction"], function(MainAction) {
 	* @param {object} [mSettings] Custom initial settings for the new control
 	*
 	* @class
-	* A <code>FooterMainAction</code> button has default semantic-specific properties
-	* and it`s placed in the <code>SemanticPage</code> footer.
-	* The <code>FooterMainAction</code> is eligible for aggregation content of a {@link sap.f.semantic.SemanticPage}.
+	* A semantic-specific button, eligible for the <code>footerMainAction</code> aggregation of the
+	* {@link sap.f.semantic.SemanticPage} to be placed in its footer.
 	*
 	* @extends <code>sap.f.semantic.SemanticButton</code>
 	*
 	* @author SAP SE
-	* @version 1.46.2
+	* @version 1.46.3
 	*
 	* @constructor
 	* @public

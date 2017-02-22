@@ -5,7 +5,7 @@
  */
 
 /**
-* Provides a private class <code>sap.f.semantic.SemanticConfiguration</code>
+* Provides a private class <code>sap.f.semantic.SemanticConfiguration</code>.
 */
 sap.ui.define([
 	"jquery.sap.global",
@@ -23,12 +23,12 @@ sap.ui.define([
 		"use strict";
 
 	/**
-	* Constructor for a sap.f.semantic.SemanticConfiguration.
+	* Constructor for a <code>sap.f.semantic.SemanticConfiguration</code>.
 	*
 	* @class
-	* Defines the visual properties and placement for each supported semantic type
+	* Defines the visual properties and placement for each supported semantic type.
 	*
-	* @version 1.46.2
+	* @version 1.46.3
 	* @private
 	* @since 1.46.0
 	* @alias sap.f.semantic.SemanticConfiguration
@@ -140,8 +140,8 @@ sap.ui.define([
 	};
 
 	/**
-	* Determines if the <code>SemanticControl</code> is a "navigation" type of action,
-	* such as <code>FullScreen</code> and <code>CloseAction</code>.
+	* Determines if the <code>SemanticControl</code> is a <code>Navigation</code> type of action,
+	* such as <code>FullScreenAction</code> and <code>CloseAction</code>.
 	*
 	* @returns {Boolean}
 	*/
@@ -178,10 +178,8 @@ sap.ui.define([
 		oTypeConfigs["sap.f.semantic.AddAction"] = {
 			placement: SemanticConfiguration._Placement.titleText,
 			order: 1,
-			constraints: "IconOnly",
 			getSettings: function() {
 				return {
-					icon: IconPool.getIconURI("add"),
 					text: oBundle.getText("SEMANTIC_CONTROL_ADD"),
 					tooltip: oBundle.getText("SEMANTIC_CONTROL_ADD"),
 					type: ButtonType.Transparent

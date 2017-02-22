@@ -13,13 +13,12 @@ sap.ui.define(['sap/f/semantic/SemanticButton'], function(SemanticButton) {
 	* @param {object} [mSettings] Custom initial settings for the new control
 	*
 	* @class
-	* The <code>MainAction</code> is the base class
-	* for the <code>TitleMainAction</code> and <code>FooterMainAction</code> controls.
+	* Serves as a base class for the {@link sap.f.semantic.TitleMainAction} and {@link sap.f.semantic.FooterMainAction} controls.
 	*
 	* @extends <code>sap.f.semantic.SemanticButton</code>
 	*
 	* @author SAP SE
-	* @version 1.46.2
+	* @version 1.46.3
 	*
 	* @constructor
 	* @public

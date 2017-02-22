@@ -5,7 +5,7 @@
  */
 
 /**
- * Provides a private class <code>sap.f.semantic.SemanticTitle</code>
+ * Provides a private class <code>sap.f.semantic.SemanticTitle</code>.
  */
 sap.ui.define([
 	"jquery.sap.global",
@@ -23,7 +23,7 @@ sap.ui.define([
 	"use strict";
 
 	/**
-	 * Constructor for a sap.f.semantic.SemanticTitle.
+	 * Constructor for a <code>sap.f.semantic.SemanticTitle</code>.
 	 *
 	 * @private
 	 * @since 1.46.0
@@ -212,7 +212,7 @@ sap.ui.define([
 	*/
 
 	/*
-	* Inserts the <code>sap.f.semantic.SemanticControl</code> container`s "titleText" area.
+	* Inserts the <code>sap.f.semantic.SemanticControl</code> in the <code>titleText</code> area.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl} oSemanticControl
@@ -221,13 +221,14 @@ sap.ui.define([
 	SemanticTitle.prototype._insertSemanticTextContent = function(oSemanticControl) {
 		var oControl = this._getControl(oSemanticControl),
 			bIsMainAction = this._isMainAction(oSemanticControl),
-			iInsertIndex = this._getSemanticTextActionInsertIndex(oSemanticControl);
+			iInsertIndex;
+
+		this._aSemanticTextActions.push(oSemanticControl);
 
 		if (bIsMainAction) {
 			this._iMainActionCount ++;
 			iInsertIndex = this._getSemanticTextMainActionInsertIndex();
 		} else {
-			this._aSemanticTextActions.push(oSemanticControl);
 			iInsertIndex = this._getSemanticTextActionInsertIndex(oSemanticControl);
 		}
 
@@ -236,7 +237,7 @@ sap.ui.define([
 	};
 
 	/*
-	* Removes the <code>sap.f.semantic.SemanticControl</code> from container`s "titleText" area.
+	* Removes the <code>sap.f.semantic.SemanticControl</code> from the <code>titleText</code> area.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl} oSemanticControl
@@ -249,16 +250,15 @@ sap.ui.define([
 
 		if (bIsMainAction) {
 			this._iMainActionCount --;
-		} else {
-			this._aSemanticTextActions.splice(iControlIndex, 1);
 		}
 
+		this._aSemanticTextActions.splice(iControlIndex, 1);
 		this._callContainerAggregationMethod("removeAction", oControl);
 		return this;
 	};
 
 	/*
-	* Inserts the <code>sap.f.semantic.SemanticControl</code> container`s "titleIcon" area.
+	* Inserts the <code>sap.f.semantic.SemanticControl</code> in the <code>titleIcon</code> area.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl} oSemanticControl
@@ -282,7 +282,7 @@ sap.ui.define([
 	};
 
 	/*
-	* Removes the <code>sap.f.semantic.SemanticControl</code> from container`s "titleIcon" area.
+	* Removes the <code>sap.f.semantic.SemanticControl</code> from the <code>titleIcon</code> area.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl} oSemanticControl
@@ -296,7 +296,7 @@ sap.ui.define([
 			this._aSemanticNavIconActions.splice(iControlIndex, 1);
 		} else {
 			iControlIndex = this._aSemanticTextActions.indexOf(oSemanticControl);
-			this._aSemanticTextActions.splice(iControlIndex, 1);
+			this._aSemanticSimpleIconActions.splice(iControlIndex, 1);
 		}
 
 		this._callContainerAggregationMethod("removeAction", oControl);
@@ -304,7 +304,7 @@ sap.ui.define([
 	};
 
 	/*
-	* Inserts the <code>sap.f.semantic.SemanticControl</code> container`s "shareIcon" area.
+	* Inserts the <code>sap.f.semantic.SemanticControl</code> in the <code>shareIcon</code> area.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl} oSemanticControl
@@ -319,7 +319,7 @@ sap.ui.define([
 	};
 
 	/*
-	* Removes the <code>sap.f.semantic.SemanticControl</code> from container`s "shareIcon" area.
+	* Removes the <code>sap.f.semantic.SemanticControl</code> from the <code>shareIcon</code> area.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl} oSemanticControl
@@ -333,7 +333,13 @@ sap.ui.define([
 
 	/*
 	* Determines the insert index of the <code>sap.f.semantic.MainAction</code>,
-	* that is about to be added in the "titleText" area.
+	* that is about to be added in the <code>titleText</code> area.
+	*
+	* <b>Note:<b> The <code>MainAction</code> should always be the first title action,
+	* based on the semantic order requirements and it is defined in <code>SemanticConfiguration</code> as well.
+	*
+	* Note: The <code>MainAction</code> should be always the first title action,
+	* based on the semantic order requirements and it`s defined in <code>SemanticConfiguration</code> as well.
 	*
 	* @private
 	* @returns {Number}
@@ -344,7 +350,15 @@ sap.ui.define([
 
 	/*
 	* Determines the insert index of the custom text action
-	* that is about to be added in the "titleText" area.
+	* that is about to be added in the <code>titleText</code> area.
+	*
+	* <b>Note:</b> The custom text actions should be inserted right after the <code>MainAction</code>,
+	* based on the semantic order requirements, that`s why the resulting index
+	* considers the presence of the <code>MainAction</code>.
+	*
+	* Note: The custom text actions should be inserted right after the <code>MainAction</code>,
+	* based on the semantic order requirements, that`s why the resulting index
+	* considers the presence of the <code>MainAction</code>.
 	*
 	* @private
 	* @param {iIndex}
@@ -364,7 +378,21 @@ sap.ui.define([
 
 	/*
 	* Determines the insert index of the <code>sap.f.semantic.SemanticControl</code>,
-	* that is about to be added in the "titleText" area.
+	* that is about to be added in the <code>titleText</code> area.
+	*
+	* <ul><b>Notes:</b>
+	* <li>The semantic text actions should be inserted right after the custom text ones,
+	* based on the semantic order requirements. Furthermore, the order between the semantic
+	* text actions is defined in the <code>SemanticConfiguration</code>.</li>	*
+	* <li>The resulting index is subtracted with the count of <code>MainAction</code>
+	* as the <code>MainAction</code> is part of the private <code>_aSemanticTextActions</code> array.</li></ul>
+	*
+	* Note: The semantic text actions should be inserted right after the custom text ones,
+	* based on the semantic order requirements, furthermore the order between the semantic
+	* text actions is defined in the <code>SemanticConfiguration</code>.
+	*
+	* Note: The resulting index is subtracted with the count of <code>MainAction</code>
+	* as the <code>MainAction</code> is part of the private <code>_aSemanticTextActions</cody> array.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl}
@@ -372,36 +400,50 @@ sap.ui.define([
 	*/
 	SemanticTitle.prototype._getSemanticTextActionInsertIndex = function(oSemanticControl) {
 		this._aSemanticTextActions.sort(this._sortControlByOrder.bind(this));
-		return this._getCustomTextActionInsertIndex() + this._aSemanticTextActions.indexOf(oSemanticControl);
+		return this._getCustomTextActionInsertIndex()
+			+ this._aSemanticTextActions.indexOf(oSemanticControl)
+			- this._iMainActionCount;
 	};
 
 	/*
 	* Determines the insert index of the custom icon action
-	* that is about to be added in the "titleIcon" area.
+	* that is about to be added in the <code>titleIcon</code> area.
+	*
+	* <b>Note:</b> The custom icon actions should be inserted right after the semantic text actions,
+	* based on the semantic order requirements.
+	*
+	* Note: The custom icon actions should be inserted right after the semantic text actions,
+	* based on the semantic order requirements.
 	*
 	* @private
 	* @param {iIndex}
 	* @returns {Number}
 	*/
 	SemanticTitle.prototype._getCustomIconActionInsertIndex = function(iIndex) {
-		var iCustomIconsCount = this._aCustomIconActions.length;
+		var iCustomIconsCount = this._aCustomIconActions.length,
+			iPriorActionsCount = this._aCustomTextActions.length + this._aSemanticTextActions.length;
 
 		if (iIndex === undefined) {
-			return this._iMainActionCount
-				+ this._aCustomTextActions.length
-				+ this._aSemanticTextActions.length
-				+ iCustomIconsCount;
+			return iPriorActionsCount + iCustomIconsCount;
 		}
 
 		iIndex = iIndex >= iCustomIconsCount ? iCustomIconsCount : iIndex;
-		iIndex += this._iMainActionCount;
+		iIndex += iPriorActionsCount;
 		return iIndex;
 	};
 
 	/*
 	* Determines the insert index of the <code>sap.f.semantic.SemanticControl</code>,
-	* that is about to be added in the "titleIcon" area with <code>constraint="IconOnly"</code>,
-	* defined in <code>SemanticConfiguration</code>
+	* that is about to be added in the <code>titleIcon</code> area with constraint <code>IconOnly</code>,
+	* defined in <code>SemanticConfiguration</code>.
+	*
+	* <b>Note:</b> The semantic icon actions should be inserted right after the custom icon actions,
+	* based on the semantic order requirements. Furthermore, the order between the semantic
+	* icon actions is defined in the <code>SemanticConfiguration</code>.
+	*
+	* Note: The semantic icon actions should be inserted right after the custom icon actions,
+	* based on the semantic order requirements, furthermore the order between the semantic
+	* icon actions is defined in the <code>SemanticConfiguration</code>.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl}
@@ -414,8 +456,14 @@ sap.ui.define([
 
 	/*
 	* Determines the insert index of the <code>sap.f.semantic.SemanticControl</code>,
-	* that is about to be added in the "titleIcon" area with <code>navigation=true</code>,
-	* defined in <code>SemanticConfiguration</code>
+	* that is about to be added in the <code>titleIcon</code> area with <code>navigation=true</code>,
+	* defined in <code>SemanticConfiguration</code>.
+	*
+	* <b>Note:</b> The semantic <code>Navigation</code> icon actions should be inserted right after the title actions separator,
+	* based on the semantic order requirements.
+	*
+	* Note: The semantic "navigation" icon actions should be inserted right after the title actions separator,
+	* based on the semantic order requirements.
 	*
 	* @private
 	* @param {sap.f.semantic.SemanticControl}
@@ -428,7 +476,13 @@ sap.ui.define([
 
 	/*
 	* Determines the insert index of the <code>sap.f.semantic.SemanticControl</code>,
-	* that is about to be added in the "titleIcon" area with constraint "shareIcon".
+	* that is about to be added in the <code>titleIcon</code> area with constraint <code>shareIcon</code>.
+	*
+	* Note: The semantic "navigation" icon actions should be inserted right before the title actions separator
+	* and after the semantic simple icon actions, based on the semantic order requirements.
+	*
+	* Note: The semantic "navigation" icon actions should be inserted right before the title actions separator
+	* and after the semantic simple icon actions, based on the semantic order requirements.
 	*
 	* @private
 	* @returns {Number}
@@ -480,7 +534,7 @@ sap.ui.define([
 	};
 
 	/*
-	* Shows/hides the <code>sap.m.ToolbarSeparator</code> visibility.
+	* Shows/hides the <code>sap.m.ToolbarSeparator</code>.
 	*
 	* @private
 	*/
@@ -492,7 +546,7 @@ sap.ui.define([
 	};
 
 	/*
-	* Inserts a <code>sap.m.ToolbarSeparator</code> to the container.
+	* Inserts a <code>sap.m.ToolbarSeparator</code> in the container.
 	*
 	* @private
 	* @returns {sap.f.semantic.SemanticTitle}
@@ -538,7 +592,7 @@ sap.ui.define([
 	};
 
 	/**
-	* Retrieves the container`s internal <code>aggregation</code>.
+	* Retrieves the container`s internal aggregation.
 	*
 	* @returns {sap.m.OverflowToolbar | null}
 	* @private

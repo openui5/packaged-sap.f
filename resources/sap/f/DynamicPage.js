@@ -67,7 +67,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.46.3
+	 * @version 1.46.4
 	 *
 	 * @constructor
 	 * @public
@@ -626,9 +626,9 @@ sap.ui.define([
 	DynamicPage.prototype._getScrollPosition = function () {
 		if (Device.system.desktop) {
 			return this._getScrollBar().getScrollPosition();
-		} else {
-			return this.$wrapper.scrollTop();
 		}
+
+		return exists(this.$wrapper) ? this.$wrapper.scrollTop() : 0;
 	};
 
 	/**

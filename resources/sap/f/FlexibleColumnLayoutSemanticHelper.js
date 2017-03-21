@@ -47,7 +47,7 @@ sap.ui.define([
 	 *
 	 * For more information, see {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState} and {@link sap.f.FlexibleColumnLayoutSemanticHelper#getNextUIState}
 	 *
-	 * @version 1.46.4
+	 * @version 1.46.5
 	 * @param {sap.f.FlexibleColumnLayout} oFlexibleColumnLayout The <code>sap.f.FlexibleColumnLayout</code> object whose state will be manipulated
 	 * @param {object} oSettings Determines the rules that will be used by the helper
 	 * @param {sap.f.LayoutType} oSettings.defaultThreeColumnLayoutType Determines what three-column layout type will be suggested by default: <code>sap.f.LayoutType.ThreeColumnsMidExpanded</code> (default) or <code>sap.f.LayoutType.ThreeColumnsEndExpanded</code>

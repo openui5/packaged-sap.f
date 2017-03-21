@@ -19,7 +19,7 @@ sap.ui.define(["./MainAction"], function(MainAction) {
 	* @extends <code>sap.f.semantic.SemanticButton</code>
 	*
 	* @author SAP SE
-	* @version 1.46.4
+	* @version 1.46.5
 	*
 	* @constructor
 	* @public

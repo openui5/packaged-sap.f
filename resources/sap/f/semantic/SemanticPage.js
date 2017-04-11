@@ -90,7 +90,7 @@ sap.ui.define([
 	* @extends sap.ui.core.Control
 	*
 	* @author SAP SE
-	* @version 1.46.5
+	* @version 1.46.6
 	*
 	* @constructor
 	* @public
@@ -208,7 +208,7 @@ sap.ui.define([
 				fullScreenAction: {type: "sap.f.semantic.FullScreenAction", multiple: false},
 
 				/**
-				*  A semantic-specific button which is placed in the <code>IconActions</code> area of the <code>SemanticPage</code> title.
+				* A semantic-specific button which is placed in the <code>IconActions</code> area of the <code>SemanticPage</code> title.
 				*/
 				exitFullScreenAction: {type: "sap.f.semantic.ExitFullScreenAction", multiple: false},
 
@@ -281,6 +281,11 @@ sap.ui.define([
 				discussInJamAction: {type: "sap.f.semantic.DiscussInJamAction", multiple: false},
 
 				/**
+				* A button which is placed in the <code>ShareMenu</code> area of the <code>SemanticPage</code> title.
+				*/
+				saveAsTileAction: {type: "sap.m.Button", multiple: false},
+
+				/**
 				* A semantic-specific button which is placed in the <code>ShareMenu</code> area of the <code>SemanticPage</code> title.
 				*/
 				shareInJamAction: {type: "sap.f.semantic.ShareInJamAction", multiple: false},
@@ -318,18 +323,25 @@ sap.ui.define([
 	* STATIC MEMBERS
 	*/
 	SemanticPage._EVENTS = {
-		SHARE_MENU_BTN_CHANGED : "_shareMenuBtnChanged"
+		SHARE_MENU_CONTENT_CHANGED : "_shareMenuContentChanged"
 	};
+
+	SemanticPage._SAVE_AS_TILE_ACTION = "saveAsTileAction";
 
 	/*
 	* LIFECYCLE METHODS
 	*/
 	SemanticPage.prototype.init = function () {
+		this._bSPBeingDestroyed = false;
 		this._initDynamicPage();
 		this._attachShareMenuButtonChange();
+		this._fnActionSubstituteParentFunction = function () {
+			return this;
+		}.bind(this);
 	};
 
 	SemanticPage.prototype.exit = function () {
+		this._bSPBeingDestroyed = true;
 		this._cleanMemory();
 	};
 
@@ -392,17 +404,27 @@ sap.ui.define([
 		}
 
 		oObject = this.validateAggregation(sAggregationName, oObject, false);
-		sType = this.getMetadata().getManagedAggregation(sAggregationName).type;
+
+		if (sAggregationName === SemanticPage._SAVE_AS_TILE_ACTION) {
+			sType = SemanticPage._SAVE_AS_TILE_ACTION;
+		} else {
+			sType = this.getMetadata().getManagedAggregation(sAggregationName).type;
+		}
 
 		if (SemanticConfiguration.isKnownSemanticType(sType)) {
 			sPlacement = SemanticConfiguration.getPlacement(sType);
 
 			if (oOldChild) {
+				this._onRemoveAggregation(oOldChild, sType);
 				this._getSemanticContainer(sPlacement).removeContent(oOldChild, sPlacement);
 			}
 
 			if (oObject) {
+				oObject._getType = function() {
+					return sType;
+				};
 				this._getSemanticContainer(sPlacement).addContent(oObject, sPlacement);
+				this._onAddAggregation(oObject, sType);
 			}
 
 			return ManagedObject.prototype.setAggregation.call(this, sAggregationName, oObject, true);
@@ -412,14 +434,21 @@ sap.ui.define([
 	};
 
 	SemanticPage.prototype.destroyAggregation = function (sAggregationName, bSuppressInvalidate) {
-		var oAggregationInfo = this.getMetadata().getAggregations()[sAggregationName], oObject, sPlacement;
+		var oAggregationInfo = this.getMetadata().getAggregations()[sAggregationName], oObject, sPlacement, sType;
 
-		if (oAggregationInfo && SemanticConfiguration.isKnownSemanticType(oAggregationInfo.type)) {
+		if (sAggregationName === SemanticPage._SAVE_AS_TILE_ACTION) {
+			sType = SemanticPage._SAVE_AS_TILE_ACTION;
+		} else {
+			sType = oAggregationInfo && oAggregationInfo.type;
+		}
+
+		if (sType && SemanticConfiguration.isKnownSemanticType(sType)) {
 			oObject = ManagedObject.prototype.getAggregation.call(this, sAggregationName);
 
 			if (oObject) {
-				sPlacement = SemanticConfiguration.getPlacement(oAggregationInfo.type);
-				this._getSemanticContainer(sPlacement).removeContent(oObject, sPlacement);
+				sPlacement = SemanticConfiguration.getPlacement(sType);
+				this._onRemoveAggregation(oObject, sType);
+				!this._bSPBeingDestroyed && this._getSemanticContainer(sPlacement).removeContent(oObject, sPlacement);
 			}
 		}
 
@@ -621,6 +650,61 @@ sap.ui.define([
 		};
 	}, this);
 
+	/**
+	* Process the given control,
+	* before setting it to one of the <code>sap.f.semantic.SemanticPage</code> aggregations.
+	* @param {sap.ui.core.Control} oControl
+	* @param {String} sType
+	* @private
+	*/
+	SemanticPage.prototype._onAddAggregation = function (oControl, sType) {
+		if (sType === SemanticPage._SAVE_AS_TILE_ACTION) {
+			this._replaceParent(oControl);
+		}
+	};
+
+	/**
+	* Process the given control,
+	* after removing it from one of the <code>sap.f.semantic.SemanticPage</code> aggregations.
+	* @param {sap.ui.core.Control} oControl
+	* @param {String} sType
+	* @private
+	*/
+	SemanticPage.prototype._onRemoveAggregation = function (oControl, sType) {
+		if (sType === SemanticPage._SAVE_AS_TILE_ACTION) {
+			 this._restoreParent(oControl);
+		}
+
+		if (oControl._getType) {
+			delete oControl._getType;
+		}
+	};
+
+	/**
+	* Replaces the <code>getParent</code> function of the given control,
+	* so the control would return the <code>SemanticPage</code> as its parent, rather than its real parent.
+	* @param {sap.ui.core.Control} oControl
+	* @private
+	*/
+	SemanticPage.prototype._replaceParent = function (oControl) {
+		if (oControl._fnOriginalGetParent) {
+			return;
+		}
+
+		oControl._fnOriginalGetParent = oControl.getParent;
+		oControl.getParent = this._fnActionSubstituteParentFunction;
+	};
+
+	/**
+	 * Restores the original <code>getParent</code> function of the given control.
+	 * @param oControl
+	 * @private
+	 */
+	SemanticPage.prototype._restoreParent = function (oControl) {
+		if (oControl && oControl._fnOriginalGetParent) {
+			oControl.getParent = oControl._fnOriginalGetParent;
+		}
+	};
 
 	/*
 	* Attaches a handler to the <code>ShareMenu</code> base button change.
@@ -630,20 +714,26 @@ sap.ui.define([
 	* @private
 	*/
 	SemanticPage.prototype._attachShareMenuButtonChange = function () {
-		this.attachEvent(SemanticPage._EVENTS.SHARE_MENU_BTN_CHANGED, this._onShareMenuBtnChanged, this);
+		this.attachEvent(SemanticPage._EVENTS.SHARE_MENU_CONTENT_CHANGED, this._onShareMenuContentChanged, this);
 	};
 
 	/*
-	* Handles the <code>SHARE_MENU_BTN_CHANGED</code> event.
+	* Handles the <code>SHARE_MENU_CONTENT_CHANGED</code> event.
 	*
 	* @private
 	*/
-	SemanticPage.prototype._onShareMenuBtnChanged = function (oEvent) {
-		var oNewButton = oEvent.getParameter("oNewButton"),
-			oOldButton = oEvent.getParameter("oOldButton");
+	SemanticPage.prototype._onShareMenuContentChanged = function (oEvent) {
+		var bShareMenuEmpty = oEvent.getParameter("bEmpty"),
+			oSemanticTitle = this._getSemanticTitle(),
+			oSemanticShareMenu = this._getShareMenu(),
+			oShareMenuButton = oSemanticShareMenu._getShareMenuButton();
 
-		this._getSemanticTitle().removeContent(oOldButton, "shareIcon");
-		this._getSemanticTitle().addContent(oNewButton, "shareIcon");
+		if (!oShareMenuButton.getParent()) {
+			oSemanticTitle.addContent(oShareMenuButton, "shareIcon");
+			return;
+		}
+
+		oShareMenuButton.setVisible(!bShareMenuEmpty);
 	};
 
 	/*
@@ -824,6 +914,21 @@ sap.ui.define([
 	* @private
 	*/
 	SemanticPage.prototype._cleanMemory = function() {
+		if (this._oShareMenu) {
+			this._oShareMenu.destroy();
+			this._oShareMenu = null;
+		}
+
+		if (this._oActionSheet) {
+			this._oActionSheet.destroy();
+			this._oActionSheet = null;
+		}
+
+		if (this._oSemanticTitle) {
+			this._oSemanticTitle.destroy();
+			this._oSemanticTitle = null;
+		}
+
 		if (this._oDynamicPageTitle) {
 			this._oDynamicPageTitle.destroy();
 			this._oDynamicPageTitle = null;
@@ -834,6 +939,11 @@ sap.ui.define([
 			this._oDynamicPageHeader = null;
 		}
 
+		if (this._oSemanticFooter) {
+			this._oSemanticFooter.destroy();
+			this._oSemanticFooter = null;
+		}
+
 		if (this._oDynamicPageFooter) {
 			this._oDynamicPageFooter.destroy();
 			this._oDynamicPageFooter = null;
@@ -842,26 +952,6 @@ sap.ui.define([
 		if (this._oOverflowToolbar) {
 			this._oOverflowToolbar.destroy();
 			this._oOverflowToolbar = null;
-		}
-
-		if (this._oActionSheet) {
-			this._oActionSheet.destroy();
-			this._oActionSheet = null;
-		}
-
-		if (this._oShareMenu) {
-			this._oShareMenu.destroy();
-			this._oShareMenu = null;
-		}
-
-		if (this._oSemanticTitle) {
-			this._oSemanticTitle.destroy();
-			this._oSemanticTitle = null;
-		}
-
-		if (this._oSemanticFooter) {
-			this._oSemanticFooter.destroy();
-			this._oSemanticFooter = null;
 		}
 	};
 

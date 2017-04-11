@@ -28,7 +28,7 @@ sap.ui.define([
 	* @class
 	* Defines the visual properties and placement for each supported semantic type.
 	*
-	* @version 1.46.5
+	* @version 1.46.6
 	* @private
 	* @since 1.46.0
 	* @alias sap.f.semantic.SemanticConfiguration
@@ -425,9 +425,15 @@ sap.ui.define([
 			}
 		};
 
-		oTypeConfigs["sap.f.semantic.PrintAction"] = {
+		oTypeConfigs["saveAsTileAction"] = {
 			placement: SemanticConfiguration._Placement.shareMenu,
 			order: 4,
+			constraints: "IconOnly"
+		};
+
+		oTypeConfigs["sap.f.semantic.PrintAction"] = {
+			placement: SemanticConfiguration._Placement.shareMenu,
+			order: 5,
 			constraints: "IconOnly",
 			getSettings: function() {
 				return {

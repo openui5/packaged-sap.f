@@ -509,13 +509,15 @@ html[data-sap-ui-browser^="ff"].sap-desktop .sapFDynamicPageTitle:focus:before {
 .sapFFCL .sapFFCLColumn .sapFFCLContainer {
   height: 100%;
 }
+.sapFFCL .sapFFCLColumnContent {
+  height: 100%;
+}
 html[data-sap-ui-animation='on'] .sapFFCL .sapFFCLColumn {
   transition: width 560ms cubic-bezier(0.1, 0, 0.05, 1);
   -webkit-transition: width 560ms cubic-bezier(0.1, 0, 0.05, 1);
 }
 .sapUiSizeCompact .sapFFCL .sapFFCLNavigationButton {
   width: 1.5rem;
-  height: 2.5rem;
 }
 .sapUiSizeCompact .sapFFCL .sapFFCLNavigationButton .sapMBtnInner {
   min-width: 1.25rem;

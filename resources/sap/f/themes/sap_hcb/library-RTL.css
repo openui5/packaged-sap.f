@@ -443,6 +443,9 @@ html[data-sap-ui-animation='on'] .sapFDynamicPage .sapFDynamicPageActualFooterCo
 .sapFFCL .sapFFCLColumn .sapFFCLContainer {
   height: 100%;
 }
+.sapFFCL .sapFFCLColumnContent {
+  height: 100%;
+}
 html[data-sap-ui-animation='on'] .sapFFCL .sapFFCLColumn {
   transition: width 560ms cubic-bezier(0.1, 0, 0.05, 1);
   -webkit-transition: width 560ms cubic-bezier(0.1, 0, 0.05, 1);

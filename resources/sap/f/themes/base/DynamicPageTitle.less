@@ -1,0 +1,216 @@
+/* ======================================= */
+/* CSS for control sap.f/DynamicPageTitle  */
+/* Base theme                              */
+/* ======================================= */
+.sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle,
+.sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly > .sapFDynamicPageTitle {
+	box-shadow: @sapUiShadowHeader;
+	.sapFDynamicPageHeader {
+		border-bottom: none;
+	}
+}
+
+.sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle .sapFDynamicPageTitleContent {
+	 padding-bottom: 1rem;
+}
+
+.sapFDynamicPageTitle {
+	z-index: 2;
+	min-height: 3rem;
+	height: 100%; /* fixes IE flexbox item centering issue BCP: 1680351222 */
+	position: relative;
+	padding: 0.5rem 2rem 0.5rem 3rem;
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	align-items: flex-start;
+	-webkit-align-items: flex-start;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+	box-sizing: border-box;
+	background: @sapUiObjectHeaderBackground;
+}
+
+.sapFDynamicPageTitle:focus {
+	outline: 0.0625rem dotted @sapUiContentFocusColor;
+	outline-offset: -0.0625rem;
+}
+
+/* IE and Edge ignores outline-offset. Use an overlay: */
+html[data-sap-ui-browser^="ie"].sap-desktop,
+html[data-sap-ui-browser^="ed"].sap-desktop {
+	.sapFDynamicPageTitle:focus {
+		outline: none;
+		position: relative;
+	}
+	.sapFDynamicPageTitle:focus:before {
+		content: " ";
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		border: 0.0625rem dashed @sapUiContentFocusColor;
+		pointer-events: none;
+	}
+}
+
+/* Firefox fix due to focus cut out from top and left */
+html[data-sap-ui-browser^="ff"].sap-desktop {
+	.sapFDynamicPageTitle:focus {
+		outline: none;
+		position: relative;
+	}
+	.sapFDynamicPageTitle:focus:before {
+		content: " ";
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		border: 0.0625rem dotted @sapUiContentFocusColor;
+		pointer-events: none;
+	}
+}
+
+/* Left Area */
+.sapFDynamicPageTitle > .sapFDynamicPageTitleLeft {
+	display: flex;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	justify-content: space-between;
+	-webkit-justify-content: space-between;
+	align-items: flex-start;
+	-webkit-align-items: flex-start;
+	width: 75%;
+
+	.sapFDynamicPageTitleLeftInner {
+		display: flex;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		align-items: flex-start;
+		-webkit-align-items: flex-start;
+		flex-direction: column;
+		-webkit-flex-direction: column;
+		justify-content: space-between;
+		-webkit-justify-content: space-between;
+		min-width: 1px; /* fix for: flex-shrink does not work some nested flex structures */
+
+		.sapFDynamicPageTitleLeftHeading,
+		.sapFDynamicPageTitleLeftSnappedExpandContent {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			box-sizing: border-box;
+			vertical-align: middle;
+		}
+
+		.sapFDynamicPageTitleLeftHeading {
+			margin-top: 0.25rem;
+			min-width: 1px;
+			max-width: 100%;
+			color: @sapUiGroupTitleTextColor;
+			font-size: @sapMFontHeader3Size;
+		}
+
+		.sapFDynamicPageTitleLeftSnappedExpandContent {
+			margin-top: 1px;
+			color: @sapUiContentLabelColor;
+			font-size: @sapMFontMediumSize;
+		}
+
+		.sapFDynamicPageTitleLeftSnappedExpandContent.sapFDynamicPageSnapContentVisible,
+		.sapFDynamicPageTitleLeftSnappedExpandContent.sapFDynamicPageExpandContentVisible {
+			min-width: 4rem;
+			max-width: 100%;
+		}
+	}
+
+	.sapFDynamicPageTitleContent {
+		padding-left: 0.5rem;
+		min-width: 1px;
+	}
+
+	/* Area Priority */
+	.sapFDynamicPageTitleAreaHighPriority {
+		flex-shrink: 1;
+		-webkit-flex-shrink: 1;
+	}
+
+	.sapFDynamicPageTitleAreaLowPriority {
+		flex-shrink: 1.6;
+		-webkit-flex-shrink: 1.6;
+	}
+
+	/* Override Title and Label styles, required by VD */
+	.sapMTitle {
+		font-size: @sapMFontHeader3Size;
+	}
+}
+
+/* Right Area */
+.sapFDynamicPageTitle > .sapFDynamicPageTitleRight {
+	width: 25%;
+	.sapFDynamicPageTitleRightActions {
+		.sapFDynamicPageTitleOverflowToolbar {
+			justify-content: flex-end;
+			-webkit-justify-content: flex-end;
+		}
+
+		.sapMTB {
+			border-bottom: none;
+		}
+	}
+}
+
+.sapFDynamicPageTitle.sapFDynamicPageTitleWithoutContent > .sapFDynamicPageTitleLeft {
+	width: 60%;
+}
+.sapFDynamicPageTitle.sapFDynamicPageTitleWithoutContent > .sapFDynamicPageTitleRight {
+	width: 40%;
+}
+
+
+/* Tablet Size */
+.sapFDynamicPage-Std-Tablet {
+	.sapFDynamicPageTitle {
+		padding: 0.5rem 1rem 0.5rem 2rem;
+	}
+
+	.sapFDynamicPageTitle > .sapFDynamicPageTitleRight {
+		width: 17%;
+	}
+	.sapFDynamicPageTitle > .sapFDynamicPageTitleLeft {
+		width: 83%;
+	}
+}
+
+/* Phone Size */
+.sapFDynamicPage-Std-Phone {
+
+	.sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle .sapFDynamicPageTitleContent {
+		padding-bottom: 0;
+	}
+
+	.sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle,
+	.sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly > .sapFDynamicPageTitle {
+		padding: 0 0 0.5rem 1rem;
+	}
+
+	.sapFDynamicPageTitle {
+		padding: 0 0 0 1rem;
+	}
+	.sapFDynamicPageTitle > .sapFDynamicPageTitleRight {
+		width: 17%;
+	}
+	.sapFDynamicPageTitle > .sapFDynamicPageTitleLeft {
+		width: 83%;
+
+		.sapFDynamicPageTitleAreaLowPriority {
+			flex-shrink: 1.5;
+			-webkit-flex-shrink: 1.5;
+		}
+	}
+}

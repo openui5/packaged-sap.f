@@ -45,7 +45,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.48.5
+	 * @version 1.48.6
 	 *
 	 * @constructor
 	 * @public
@@ -204,13 +204,12 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 		.forEach(function (sMethod) {
 			DynamicPageTitle.prototype[sMethod] = function (oControl) {
 				var oToolbar = this._getOverflowToolbar(),
-					sToolbarMethod = sMethod.replace(/Actions?/, "Content"),
-					vResult;
+					sToolbarMethod = sMethod.replace(/Actions?/, "Content");
 
 				if (sMethod === "addAction" || sMethod === "insertAction") {
-					vResult = oToolbar[sToolbarMethod].apply(oToolbar, arguments);
+					oToolbar[sToolbarMethod].apply(oToolbar, arguments);
 					this._preProcessAction(oControl);
-					return vResult;
+					return this;
 				} else if (sMethod === "removeAction") {
 					this._postProcessAction(oControl);
 				} else if (sMethod === "removeAllActions" || sMethod === "destroyActions") {

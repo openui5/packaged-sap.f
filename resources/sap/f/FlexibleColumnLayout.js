@@ -64,7 +64,7 @@ sap.ui.define([
 	 *
 	 * @extends sap.ui.core.Control
 	 * @author SAP SE
-	 * @version 1.48.5
+	 * @version 1.48.6
 	 *
 	 * @constructor
 	 * @public
@@ -703,6 +703,7 @@ sap.ui.define([
 
 	FlexibleColumnLayout.prototype.exit = function () {
 		this._deregisterResizeHandler();
+		this._handleEvent(jQuery.Event("Destroy"));
 	};
 
 	FlexibleColumnLayout.prototype._registerResizeHandler = function () {

@@ -47,7 +47,7 @@ sap.ui.define([
 	 *
 	 * For more information, see {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState} and {@link sap.f.FlexibleColumnLayoutSemanticHelper#getNextUIState}
 	 *
-	 * @version 1.48.5
+	 * @version 1.48.6
 	 * @param {sap.f.FlexibleColumnLayout} oFlexibleColumnLayout The <code>sap.f.FlexibleColumnLayout</code> object whose state will be manipulated
 	 * @param {object} oSettings Determines the rules that will be used by the helper
 	 * @param {sap.f.LayoutType} oSettings.defaultTwoColumnLayoutType Determines what two-column layout type will be suggested by default: <code>sap.f.LayoutType.TwoColumnsBeginExpanded</code> (default) or <code>sap.f.LayoutType.TwoColumnsMidExpanded</code>
@@ -60,7 +60,7 @@ sap.ui.define([
 	var FlexibleColumnLayoutSemanticHelper = function (oFlexibleColumnLayout, oSettings) {
 		this._oFCL = oFlexibleColumnLayout;
 		this._mode = "Normal";
-
+		oSettings || (oSettings = {});
 		// Currently only the the default 3-column type is configurable
 		this._defaultLayoutType = LT.OneColumn;
 		this._defaultTwoColumnLayoutType = [LT.TwoColumnsBeginExpanded, LT.TwoColumnsMidExpanded].indexOf(oSettings.defaultTwoColumnLayoutType) !== -1 ?
@@ -98,6 +98,13 @@ sap.ui.define([
 
 		if (typeof FlexibleColumnLayoutSemanticHelper._oInstances[sId] === "undefined") {
 			FlexibleColumnLayoutSemanticHelper._oInstances[sId] = new FlexibleColumnLayoutSemanticHelper(oFlexibleColumnLayout, oSettings);
+
+			var oDelegate = {
+				onDestroy: function() {
+					delete FlexibleColumnLayoutSemanticHelper._oInstances[sId];
+				}
+			};
+			oFlexibleColumnLayout.addEventDelegate(oDelegate);
 		}
 
 		return FlexibleColumnLayoutSemanticHelper._oInstances[sId];

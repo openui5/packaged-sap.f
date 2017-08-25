@@ -19,14 +19,14 @@ sap.ui.define(["jquery.sap.global",
 	 * @namespace
 	 * @name sap.f
 	 * @author SAP SE
-	 * @version 1.50.0
+	 * @version 1.50.1
 	 * @public
 	 */
 
 	// delegate further initialization of this library to the Core
 	sap.ui.getCore().initLibrary({
 		name : "sap.f",
-		version: "1.50.0",
+		version: "1.50.1",
 		dependencies : ["sap.ui.core", "sap.m"],
 		types: [
 			"sap.f.LayoutType",
@@ -70,7 +70,8 @@ sap.ui.define(["jquery.sap.global",
 					"hideControl": "default",
 					"unhideControl": "default",
 					"moveControls": "default"
-				}
+				},
+				"sap.f.DynamicPageTitle" : "sap/f/flexibility/DynamicPageTitle"
 			}
 		}
 	});

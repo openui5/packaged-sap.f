@@ -220,6 +220,7 @@
 .sapFDynamicPage .sapFDynamicPageFooter .sapFDynamicPageActualFooterControl {
   position: absolute;
   height: 3rem;
+  width: auto;
   bottom: 0;
   right: 0;
   left: 0;
@@ -301,8 +302,6 @@ html[data-sap-ui-animation='on'] .sapFDynamicPage .sapFDynamicPageActualFooterCo
 .sapFDynamicPageTitle {
   z-index: 2;
   min-height: 3rem;
-  height: 100%;
-  /* fixes IE flexbox item centering issue BCP: 1680351222 */
   position: relative;
   padding: 0.5rem 2rem 0.5rem 3rem;
   display: flex;
@@ -314,6 +313,11 @@ html[data-sap-ui-animation='on'] .sapFDynamicPage .sapFDynamicPageActualFooterCo
   -webkit-flex-direction: row;
   box-sizing: border-box;
   background: #ffffff;
+}
+html[data-sap-ui-browser^="ie"].sap-desktop .sapFDynamicPageTitle,
+html[data-sap-ui-browser^="ed"].sap-desktop .sapFDynamicPageTitle {
+  height: 100%;
+  /* fixes IE flexbox item centering issue BCP: 1680351222 */
 }
 .sapFDynamicPageTitle:focus {
   outline: 0.0625rem dotted #000000;

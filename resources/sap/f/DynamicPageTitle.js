@@ -45,7 +45,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.50.0
+	 * @version 1.50.1
 	 *
 	 * @constructor
 	 * @public
@@ -102,7 +102,8 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 				 */
 				_overflowToolbar: {type: "sap.ui.core.Control", multiple: false, visibility: "hidden"}
 
-			}
+			},
+			designTime: true
 		}
 	});
 
@@ -206,6 +207,9 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 
 		oAction._fnOriginalGetParent = oAction.getParent;
 		oAction.getParent = this._fnActionSubstituteParentFunction;
+
+		oAction._sOriginalParentAggregationName = oAction.sParentAggregationName;
+		oAction.sParentAggregationName = "actions";
 	};
 
 	/**
@@ -219,7 +223,14 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 			return;
 		}
 
+		// The runtime adaptation tipically removes and then adds aggregations multiple times.
+		// That is why we need to make sure that the controls are in their previous state
+		// when preprocessed. Otherwise the wrong parent aggregation name is passed
 		oAction.getParent = oAction._fnOriginalGetParent;
+		oAction._fnOriginalGetParent = null;
+
+		oAction.sParentAggregationName = oAction._sOriginalParentAggregationName;
+		oAction._sOriginalParentAggregationName = null;
 	};
 
 	/**
@@ -309,7 +320,7 @@ sap.ui.define(["jquery.sap.global", "./library", "sap/ui/core/Control", "sap/m/O
 			aSnapContent = this.getSnappedContent(),
 			aExpandContent = this.getExpandedContent(),
 			bHasExpandedContent = aExpandContent.length > 0,
-			bHasSnappedContent = aExpandContent.length > 0,
+			bHasSnappedContent = aSnapContent.length > 0,
 			bShowSnapContent = this._getShowSnapContent(),
 			sAriaText = this._oRB.getText("TOGGLE_HEADER"),
 			sPrimaryArea = this.getPrimaryArea();

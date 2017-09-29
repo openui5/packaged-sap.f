@@ -392,11 +392,13 @@ html[data-sap-ui-browser^="ff"].sap-desktop .sapFDynamicPageTitle:focus:before {
   vertical-align: middle;
 }
 .sapFDynamicPageTitle > .sapFDynamicPageTitleLeft .sapFDynamicPageTitleLeftInner .sapFDynamicPageTitleLeftHeading {
-  margin-top: 0.25rem;
   min-width: 1px;
   max-width: 100%;
   color: #000000;
   font-size: 1.25rem;
+}
+.sapFDynamicPageTitle > .sapFDynamicPageTitleLeft .sapFDynamicPageTitleLeftInner .sapFDynamicPageTitleLeftHeading .sapMTitle {
+  margin-top: 0.25rem;
 }
 .sapFDynamicPageTitle > .sapFDynamicPageTitleLeft .sapFDynamicPageTitleLeftInner .sapFDynamicPageTitleLeftSnappedExpandContent {
   margin-top: 1px;

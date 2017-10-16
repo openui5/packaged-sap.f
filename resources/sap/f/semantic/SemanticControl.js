@@ -25,7 +25,7 @@ sap.ui.define([
 	* @abstract
 	*
 	* @author SAP SE
-	* @version 1.50.3
+	* @version 1.50.4
 	*
 	* @constructor
 	* @public

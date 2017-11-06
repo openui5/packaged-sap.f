@@ -72,7 +72,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.48.12
+	 * @version 1.48.13
 	 *
 	 * @constructor
 	 * @public
@@ -904,9 +904,8 @@ sap.ui.define([
 			oScrollBar.toggleStyleClass("sapUiHidden", !bScrollBarNeeded);
 			this.toggleStyleClass("sapFDynamicPageWithScroll", bScrollBarNeeded);
 			this.bHasScrollbar = bScrollBarNeeded;
-			jQuery.sap.delayedCall(0, this, this._updateFitContainer);
 		}
-
+		jQuery.sap.delayedCall(0, this, this._updateFitContainer);
 		jQuery.sap.delayedCall(0, this, this._updateScrollBarOffset);
 
 	};

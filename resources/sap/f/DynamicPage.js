@@ -73,7 +73,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.52.0
+	 * @version 1.52.1
 	 *
 	 * @constructor
 	 * @public
@@ -458,13 +458,8 @@ sap.ui.define([
 		jQuery.sap.log.debug("DynamicPage :: snapped header", this);
 
 		if (exists(oDynamicPageTitle)) {
-			if (exists(oDynamicPageTitle.getExpandedContent())) {
-				oDynamicPageTitle._setShowExpandContent(false);
-			}
 
-			if (exists(oDynamicPageTitle.getSnappedContent())) {
-				oDynamicPageTitle._setShowSnapContent(true);
-			}
+			oDynamicPageTitle._toggleState(false);
 
 			if (bAppendHeaderToContent && this._bHeaderInTitleArea) {
 				this._moveHeaderToContentArea(true);
@@ -491,12 +486,8 @@ sap.ui.define([
 		jQuery.sap.log.debug("DynamicPage :: expand header", this);
 
 		if (exists(oDynamicPageTitle)) {
-			if (exists(oDynamicPageTitle.getExpandedContent())) {
-				oDynamicPageTitle._setShowExpandContent(true);
-			}
-			if (exists(oDynamicPageTitle.getSnappedContent())) {
-				oDynamicPageTitle._setShowSnapContent(false);
-			}
+
+			oDynamicPageTitle._toggleState(true);
 
 			if (bAppendHeaderToTitle) {
 				this._moveHeaderToTitleArea(true);
@@ -530,8 +521,7 @@ sap.ui.define([
 		}
 
 		if (exists(oDynamicPageTitle)) {
-			oDynamicPageTitle._setShowExpandContent(bExpanded);
-			oDynamicPageTitle._setShowSnapContent(!bExpanded);
+			oDynamicPageTitle._toggleState(bExpanded);
 		}
 
 		if (exists(oDynamicPageHeader)) {

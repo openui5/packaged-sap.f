@@ -67,7 +67,7 @@ sap.ui.define([
 	 *
 	 * @extends sap.ui.core.Control
 	 * @author SAP SE
-	 * @version 1.50.5
+	 * @version 1.50.6
 	 *
 	 * @constructor
 	 * @public

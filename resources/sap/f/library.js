@@ -1,6 +1,6 @@
 /*!
  * UI development toolkit for HTML5 (OpenUI5)
- * (c) Copyright 2009-2017 SAP SE or an SAP affiliate company.
+ * (c) Copyright 2009-2018 SAP SE or an SAP affiliate company.
  * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
  */
 
@@ -16,7 +16,7 @@ sap.ui.define(["sap/ui/Global",
 	// delegate further initialization of this library to the Core
 	sap.ui.getCore().initLibrary({
 		name : "sap.f",
-		version: "1.52.3",
+		version: "1.52.4",
 		dependencies : ["sap.ui.core", "sap.m"],
 		types: [
 			"sap.f.LayoutType",
@@ -72,7 +72,7 @@ sap.ui.define(["sap/ui/Global",
 	 * @namespace
 	 * @alias sap.f
 	 * @author SAP SE
-	 * @version 1.52.3
+	 * @version 1.52.4
 	 * @public
 	 */
 	var thisLib = sap.f;

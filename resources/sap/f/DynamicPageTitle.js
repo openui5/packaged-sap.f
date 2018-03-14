@@ -70,7 +70,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.54.1
+	 * @version 1.54.2
 	 *
 	 * @constructor
 	 * @public
@@ -304,6 +304,7 @@ sap.ui.define([
 	DynamicPageTitle.prototype.init = function () {
 		this._bExpandedState = true;
 		this._bShowExpandButton = false;
+		this._bIsFocusable = true;
 		this._fnActionSubstituteParentFunction = function () {
 			return this;
 		}.bind(this);
@@ -576,6 +577,18 @@ sap.ui.define([
 		}
 
 		return this.getAggregation("_navActionsToolbarSeparator");
+	};
+
+	/**
+	 * Toggles the <code>DynamicPageTitle</code>'s <code>tabindex</code> according to the provided state.
+	 * @param {Boolean} bFocusable
+	 * @private
+	 */
+	DynamicPageTitle.prototype._toggleFocusableState = function (bFocusable) {
+		var $oTitle = this.$();
+
+		this._bIsFocusable = bFocusable;
+		bFocusable ? $oTitle.attr("tabindex", 0) : $oTitle.removeAttr("tabindex");
 	};
 
 	/* ========== DynamicPageTitle actions and navigationActions processing ========== */
@@ -1027,7 +1040,8 @@ sap.ui.define([
 			hasOnlyBreadcrumbs: bHasOnlyBreadcrumbs,
 			hasOnlyNavigationActions: bHasOnlyNavigationActions,
 			contentAreaFlexBasis: this._sContentAreaFlexBasis,
-			actionsAreaFlexBasis: this._sActionsAreaFlexBasis
+			actionsAreaFlexBasis: this._sActionsAreaFlexBasis,
+			isFocusable: this._bIsFocusable
 		};
 	};
 

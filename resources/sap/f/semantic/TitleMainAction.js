@@ -16,10 +16,10 @@ sap.ui.define(["./MainAction"], function(MainAction) {
 	* A semantic-specific button, eligible for the <code>titleMainAction</code> aggregation of the
 	* {@link sap.f.semantic.SemanticPage} to be placed in its title.
 	*
-	* @extends sap.f.semantic.SemanticButton
+	* @extends sap.f.semantic.MainAction
 	*
 	* @author SAP SE
-	* @version 1.52.10
+	* @version 1.52.11
 	*
 	* @constructor
 	* @public

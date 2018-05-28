@@ -84,7 +84,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.54.5
+	 * @version 1.54.6
 	 *
 	 * @constructor
 	 * @public
@@ -211,6 +211,8 @@ sap.ui.define([
 
 	DynamicPage.HEADER_MAX_ALLOWED_NON_SROLLABLE_PERCENTAGE = 0.6;
 
+	DynamicPage.HEADER_MAX_ALLOWED_NON_SROLLABLE_ON_MOBILE = 0.3;
+
 	DynamicPage.FOOTER_ANIMATION_DURATION = 350; // ms.
 
 	DynamicPage.BREAK_POINTS = {
@@ -259,8 +261,14 @@ sap.ui.define([
 	};
 
 	DynamicPage.prototype.onBeforeRendering = function () {
+		var oDynamicPageTitle = this.getTitle();
+
 		if (!this._preserveHeaderStateOnScroll()) {
 			this._attachPinPressHandler();
+		}
+
+		if (exists(oDynamicPageTitle)) {
+			oDynamicPageTitle._toggleFocusableState(this.getToggleHeaderOnTitleClick());
 		}
 
 		this._attachTitlePressHandler();
@@ -944,7 +952,10 @@ sap.ui.define([
 	 * @private
 	 */
 	DynamicPage.prototype._headerBiggerThanAllowedToBeExpandedInTitleArea = function () {
-		return this._getEntireHeaderHeight() >= this._getOwnHeight();
+		var iEntireHeaderHeight = this._getEntireHeaderHeight(), // Title + Header
+			iDPageHeight = this._getOwnHeight();
+
+		return Device.system.phone ? iEntireHeaderHeight >= DynamicPage.HEADER_MAX_ALLOWED_NON_SROLLABLE_ON_MOBILE * iDPageHeight : iEntireHeaderHeight >= iDPageHeight;
 	};
 
 	/**

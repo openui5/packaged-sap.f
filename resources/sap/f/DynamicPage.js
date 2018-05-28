@@ -89,7 +89,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.56.0
+	 * @version 1.56.1
 	 *
 	 * @constructor
 	 * @public
@@ -528,7 +528,7 @@ sap.ui.define([
 
 		if (this._bPinned && bUserInteraction) {
 			this._unPin();
-			this.getHeader().getAggregation("_pinButton").setPressed(false);
+			this._togglePinButtonPressedState(false);
 		}
 
 		if (exists(oDynamicPageTitle)) {
@@ -549,6 +549,7 @@ sap.ui.define([
 		if (this._hasVisibleTitleAndHeader()) {
 			this.$titleArea.addClass("sapFDynamicPageTitleSnapped");
 			this._updateToggleHeaderVisualIndicators();
+			this._togglePinButtonVisibility(false);
 		}
 
 		this._toggleHeaderInTabChain(false);
@@ -584,6 +585,7 @@ sap.ui.define([
 		if (this._hasVisibleTitleAndHeader()) {
 			this.$titleArea.removeClass("sapFDynamicPageTitleSnapped");
 			this._updateToggleHeaderVisualIndicators();
+			this._togglePinButtonVisibility(true);
 		}
 
 		this._toggleHeaderInTabChain(true);

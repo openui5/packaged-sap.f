@@ -139,6 +139,10 @@
   z-index: 0;
   background: #ffffff;
 }
+.sapFDynamicPageContent .sapFDynamicPageAlignContent {
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
 html[data-sap-ui-browser^="ie"] .sapFDynamicPageContent {
   flex-shrink: 0;
 }
@@ -363,7 +367,7 @@ html[data-sap-ui-animation='on'] .sapFDynamicPage .sapFDynamicPageActualFooterCo
   padding-bottom: 1rem;
 }
 .sapFDynamicPageTitle {
-  z-index: 2;
+  z-index: 3;
   position: relative;
   min-height: 3rem;
   padding: 0.5rem 3rem 0.5rem 2rem;

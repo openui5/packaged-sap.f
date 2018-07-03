@@ -89,7 +89,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.56.2
+	 * @version 1.56.3
 	 *
 	 * @constructor
 	 * @public
@@ -593,7 +593,9 @@ sap.ui.define([
 		if (this._hasVisibleTitleAndHeader()) {
 			this.$titleArea.removeClass("sapFDynamicPageTitleSnapped");
 			this._updateToggleHeaderVisualIndicators();
-			this._togglePinButtonVisibility(true);
+			if (!this.getPreserveHeaderStateOnScroll()) {
+				this._togglePinButtonVisibility(true);
+			}
 		}
 
 		this._toggleHeaderInTabChain(true);
@@ -1653,6 +1655,7 @@ sap.ui.define([
 			bAllowAppendHeaderToTitle = !this._headerBiggerThanAllowedToBeExpandedInTitleArea();
 			this._bExpandingWithAClick = true;
 			this._expandHeader(bAllowAppendHeaderToTitle, bUserInteraction);
+			this.getHeader().$().removeClass("sapFDynamicPageHeaderHidden");
 			if (!bAllowAppendHeaderToTitle) {
 				this._setScrollPosition(0);
 			}

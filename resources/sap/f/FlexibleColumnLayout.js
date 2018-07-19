@@ -81,7 +81,7 @@ sap.ui.define([
 	 *
 	 * @extends sap.ui.core.Control
 	 * @author SAP SE
-	 * @version 1.56.3
+	 * @version 1.56.4
 	 *
 	 * @constructor
 	 * @public
@@ -588,6 +588,8 @@ sap.ui.define([
 		}
 	});
 
+	FlexibleColumnLayout.COLUMN_RESIZING_ANIMATION_DURATION = 560; // ms
+
 	FlexibleColumnLayout.prototype.init = function () {
 
 		// Create the 3 nav containers
@@ -904,11 +906,22 @@ sap.ui.define([
 
 			// Animations on - suspend ResizeHandler while animation is running
 			if (sap.ui.getCore().getConfiguration().getAnimationMode() !== Configuration.AnimationMode.none) {
+
 				var oColumnDomRef = this._$columns[sColumn].get(0);
+
+				// Suspending ResizeHandler temporarily
 				ResizeHandler.suspend(oColumnDomRef);
-				this._$columns[sColumn].one("webkitTransitionEnd msTransitionEnd transitionend", function () {
+
+				// Clear previous timeouts if present
+				if (this._iResumeResizeHandlerTimeout) {
+					clearTimeout(this._iResumeResizeHandlerTimeout);
+				}
+
+				// Schedule resume of ResizeHandler
+				this._iResumeResizeHandlerTimeout = setTimeout(function() {
 					ResizeHandler.resume(oColumnDomRef);
-				});
+					this._iResumeResizeHandlerTimeout = null;
+				}.bind(this), FlexibleColumnLayout.COLUMN_RESIZING_ANIMATION_DURATION);
 			}
 
 			this._$columns[sColumn].width(sNewWidth);

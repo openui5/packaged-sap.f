@@ -89,7 +89,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.56.4
+	 * @version 1.56.5
 	 *
 	 * @constructor
 	 * @public
@@ -1000,6 +1000,11 @@ sap.ui.define([
 	DynamicPage.prototype._headerBiggerThanAllowedToBeExpandedInTitleArea = function () {
 		var iEntireHeaderHeight = this._getEntireHeaderHeight(), // Title + Header
 			iDPageHeight = this._getOwnHeight();
+
+		// Return false when DynamicPage is not visible
+		if (iDPageHeight === 0) {
+			return false;
+		}
 
 		return Device.system.phone ? iEntireHeaderHeight >= DynamicPage.HEADER_MAX_ALLOWED_NON_SROLLABLE_ON_MOBILE * iDPageHeight : iEntireHeaderHeight >= iDPageHeight;
 	};

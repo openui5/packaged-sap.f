@@ -60,7 +60,7 @@ sap.ui.define([
 	 * @extends sap.ui.core.Control
 	 *
 	 * @author SAP SE
-	 * @version 1.52.16
+	 * @version 1.52.17
 	 *
 	 * @constructor
 	 * @public
@@ -397,6 +397,37 @@ sap.ui.define([
 				return vResult;
 			};
 		});
+
+	DynamicPageTitle.prototype.clone = function (sIdSuffix, aLocalIds, oOptions) {
+
+		var oTitleClone = Control.prototype.clone.apply(this, arguments),
+			bCloneChildren = true;
+
+		if (oOptions) {
+			bCloneChildren = !!oOptions.cloneChildren;
+		}
+
+		if (!bCloneChildren) {
+			return oTitleClone;
+		}
+
+		// need to clone the aggregations that forward its children to internal aggregations
+		var fnCloneForwardedAggregation = function (sAggregationName) {
+
+			if (!this.isBound(sAggregationName)) {
+				var oAggregation = this.getMetadata().getAggregation(sAggregationName);
+
+				oAggregation.get(this).forEach(function(oChild) {
+					oAggregation.add(oTitleClone, oChild.clone()); // use the *public* mutator to aggregate the child-clones into the title-clone => ensures children *preprocessed* correctly
+				}, this);
+			}
+		}.bind(this);
+
+		fnCloneForwardedAggregation("actions");
+		fnCloneForwardedAggregation("navigationActions");
+
+		return oTitleClone;
+	};
 
 	/* ========== PRIVATE METHODS  ========== */
 

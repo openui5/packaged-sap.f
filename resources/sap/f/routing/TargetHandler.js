@@ -142,6 +142,10 @@ sap.ui.define(['jquery.sap.global', 'sap/m/InstanceManager', 'sap/f/FlexibleColu
 					oParams : oCurrentParams
 				};
 
+				if (!isNavigationContainer(oCurrentContainer)) {
+					continue;
+				}
+
 				for (i = 0; i < aResults.length; i++) {
 					oResult = aResults[i];
 
@@ -234,6 +238,10 @@ sap.ui.define(['jquery.sap.global', 'sap/m/InstanceManager', 'sap/f/FlexibleColu
 				InstanceManager.closeAllLightBoxes();
 			}
 		};
+
+		function isNavigationContainer(oContainer) {
+			return oContainer && oContainer.isA(["sap.m.NavContainer", "sap.m.SplitContainer", "sap.f.FlexibleColumnLayout"]);
+		}
 
 		return TargetHandler;
 

@@ -12,7 +12,7 @@ sap.ui.define(["sap/ui/fl/Utils"], function(FlexUtils) {
 		 *
 		 * @alias sap.f.changeHandler.MoveDynamicPageTitleActions
 		 * @author SAP SE
-		 * @version 1.58.0
+		 * @version 1.58.1
 		 * @experimental Since 1.52
 		 */
 		var MoveActions = { };

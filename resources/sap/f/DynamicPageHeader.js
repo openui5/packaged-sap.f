@@ -48,7 +48,7 @@ sap.ui.define(["./library",
 		 * @extends sap.ui.core.Control
 		 *
 		 * @author SAP SE
-		 * @version 1.52.18
+		 * @version 1.52.19
 		 *
 		 * @constructor
 		 * @public

@@ -49,7 +49,7 @@ sap.ui.define([
 	 *
 	 * For more information, see {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState} and {@link sap.f.FlexibleColumnLayoutSemanticHelper#getNextUIState}
 	 *
-	 * @version 1.56.7
+	 * @version 1.56.10
 	 * @param {sap.f.FlexibleColumnLayout} oFlexibleColumnLayout
 	 * The <code>sap.f.FlexibleColumnLayout</code> object whose state will be manipulated.
 	 *
@@ -404,7 +404,7 @@ sap.ui.define([
 
 			}
 
-			if (sColumnWidthDistribution === "25/50/25" || sColumnWidthDistribution === "25/25/50" || sColumnWidthDistribution === "0/67/33") {
+			if (sColumnWidthDistribution === "25/50/25" || sColumnWidthDistribution === "25/25/50" || sColumnWidthDistribution === "0/67/33" || sColumnWidthDistribution === "0/33/67") {
 
 				oEndColumn.fullScreen = LT.EndColumnFullScreen;
 				oEndColumn.closeColumn = this._defaultTwoColumnLayoutType;

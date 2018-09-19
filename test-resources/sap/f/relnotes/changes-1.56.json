@@ -167,5 +167,27 @@
         "references": []
       }
     ]
+  },
+  "1.56.8": {
+    "date": "September 2018",
+    "notes": [
+      {
+        "id": "226c7cc9f6eae3a58c5feea8ce0524c12ed39742",
+        "type": "FIX",
+        "text": " DynamicPage: Initially snapped header excluded from tab chain",
+        "references": []
+      }
+    ]
+  },
+  "1.56.9": {
+    "date": "September 2018",
+    "notes": [
+      {
+        "id": "8760c4d03f3a6aaad4604121a3dc7a18f30cf327",
+        "type": "FIX",
+        "text": " FlexibleColumnLayout: Fixed disappearing of navigation actions",
+        "references": []
+      }
+    ]
   }
 }

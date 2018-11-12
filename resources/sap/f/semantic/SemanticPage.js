@@ -95,7 +95,7 @@ sap.ui.define([
 	* @extends sap.ui.core.Control
 	*
 	* @author SAP SE
-	* @version 1.56.14
+	* @version 1.56.15
 	*
 	* @constructor
 	* @public
@@ -612,7 +612,12 @@ sap.ui.define([
 	].forEach(function (sMethod) {
 		SemanticPage.prototype[sMethod] = function () {
 			var oSemanticShareMenu = this._getShareMenu(),
-				sSemanticShareMenuMethod = sMethod.replace(/CustomShareAction?/, "CustomAction");
+				sSemanticShareMenuMethod = sMethod.replace(/CustomShareAction?/, "CustomAction"),
+				aCustomActionMethods = ["addCustomAction", "insertCustomAction"];
+
+				if (aCustomActionMethods.indexOf(sSemanticShareMenuMethod) > -1) {
+					this.addDependent(arguments[0]);
+				}
 
 			return oSemanticShareMenu[sSemanticShareMenuMethod].apply(oSemanticShareMenu, arguments);
 		};

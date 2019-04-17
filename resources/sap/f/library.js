@@ -19,14 +19,14 @@ sap.ui.define(["jquery.sap.global",
 	 * @namespace
 	 * @name sap.f
 	 * @author SAP SE
-	 * @version 1.44.40
+	 * @version 1.44.41
 	 * @public
 	 */
 
 	// delegate further initialization of this library to the Core
 	sap.ui.getCore().initLibrary({
 		name : "sap.f",
-		version: "1.44.40",
+		version: "1.44.41",
 		dependencies : ["sap.ui.core", "sap.m"],
 		types: [
 			"sap.f.ThreeColumnLayoutType"

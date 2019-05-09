@@ -16,7 +16,7 @@ sap.ui.define(["sap/ui/Global",
 	// delegate further initialization of this library to the Core
 	sap.ui.getCore().initLibrary({
 		name : "sap.f",
-		version: "1.52.28",
+		version: "1.52.29",
 		dependencies : ["sap.ui.core", "sap.m"],
 		types: [
 			"sap.f.LayoutType",
@@ -72,7 +72,7 @@ sap.ui.define(["sap/ui/Global",
 	 * @namespace
 	 * @alias sap.f
 	 * @author SAP SE
-	 * @version 1.52.28
+	 * @version 1.52.29
 	 * @public
 	 */
 	var thisLib = sap.f;

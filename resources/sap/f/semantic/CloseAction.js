@@ -18,7 +18,7 @@ sap.ui.define(['./SemanticButton'], function(SemanticButton) {
 	* @extends sap.f.semantic.SemanticButton
 	*
 	* @author SAP SE
-	* @version 1.52.32
+	* @version 1.52.34
 	*
 	* @constructor
 	* @public
